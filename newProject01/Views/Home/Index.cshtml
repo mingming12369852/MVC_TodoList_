@@ -1,0 +1,70 @@
+﻿@using newProject01.Models;
+@{
+    List<Card> cards = ViewBag.cards;
+    //ViewBag.Title = "Home Page";
+}
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+</head>
+
+<div class="Top-Bar">
+    <h1>Todo-List</h1>
+    <p class="lead">這是一個簡易的Todo-List。 關閉時將自動保存。</p>
+    <img class="cart" style="width:18rem;" src="~/Content/image/think.png">
+</div>
+
+
+<div class="container-fluid" align="center">
+    <ul class="list-group">
+        <form action="~/Home/CreateCard" class="form-inline" method="post" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" placeholder="請輸入工作事項">
+            </div>
+
+            <button type="submit" class="btn btn-default" value="添加">添加</button>
+        </form>
+
+        @Html.ActionLink("新增資料", "CreateCard");
+
+    </ul>
+
+    <!--新增事項-->
+    <h1>====待做清單====</h1>
+
+    @foreach (Card card in cards)
+    {
+        <div>
+            <li class="list-group-item">
+                <input type="checkbox">@card.Name
+                <button type="submit" class="btn btn-default">修改</button>
+
+            </li>
+        </div>
+    }
+
+
+
+
+    <h1>====完成清單====</h1>
+    @foreach (Card card in cards)
+    {
+        <div>
+            <li class="list-group-item">
+                <p>
+                    <s><input type="checkbox" checked>@card.Name</s>
+                    <button type="submit" class="btn btn-default">刪除</button>
+                </p>
+
+            </li>
+        </div>
+    }
+
+
+</div>
