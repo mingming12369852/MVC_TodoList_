@@ -1,0 +1,17 @@
+﻿@model newProject01.Models.Card
+@{
+    ViewBag.Title = "修改介面";
+}
+
+<h2>EdidCard</h2>
+
+<form method="post" action="/Home/EdidCard">
+
+    <input name="id" style='display:none' value="@Model.Id" />
+    工作事項<input name="name" value="@Model.Name" /> ||||||||||
+    我是Schedule
+
+    <input value="@Model.Schedule" />
+
+    <input class="btn btn-default" type="submit" value="修改" />
+</form>

@@ -6,6 +6,7 @@
 
 
 
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
@@ -20,18 +21,21 @@
     <img class="cart" style="width:18rem;" src="~/Content/image/think.png">
 </div>
 
-
 <div class="container-fluid" align="center">
+
     <ul class="list-group">
-        <form action="~/Home/CreateCard" class="form-inline" method="post" role="form">
-            <div class="form-group">
-                <input type="text" class="form-control" id="name" placeholder="請輸入工作事項">
+
+        <form method="post" action="/Home/CreateCard">
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <label for="inputCharName" class="col-sm-2">工作事項</label>
+                    <input type="text" id="inputCharName" name="Name" class="form-control" />
+                    <input class="btn btn-default" type="submit" value="新增" />
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-default" value="添加">添加</button>
         </form>
-
-        @Html.ActionLink("新增資料", "CreateCard");
 
     </ul>
 
@@ -40,30 +44,44 @@
 
     @foreach (Card card in cards)
     {
-        <div>
-            <li class="list-group-item">
-                <input type="checkbox">@card.Name
-                <button type="submit" class="btn btn-default">修改</button>
 
-            </li>
-        </div>
+        if (@card.Schedule == "false")
+        {
+            <div>
+                <li class="list-group-item">
+                    <a href="@Url.Action("CheckboxGet",new { @id = @card.Id ,@schedule=true})">完成</a>
+
+                    <input type="checkbox" name="shedule" value="true">|@card.Name
+
+                    @Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })|
+                    @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
+
+                </li>
+            </div>
+        }
+
     }
 
 
 
 
     <h1>====完成清單====</h1>
+
     @foreach (Card card in cards)
     {
-        <div>
-            <li class="list-group-item">
-                <p>
-                    <s><input type="checkbox" checked>@card.Name</s>
-                    <button type="submit" class="btn btn-default">刪除</button>
-                </p>
 
-            </li>
-        </div>
+        if (@card.Schedule == "true")
+        {
+            <div>
+                <li class="list-group-item">
+
+                    <s><input type="checkbox" checked>@card.Name</s>
+                    @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
+
+                </li>
+            </div>
+        }
+
     }
 
 

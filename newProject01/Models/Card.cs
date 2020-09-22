@@ -10,7 +10,8 @@ namespace newProject01.Models
 {
     public class Card
     {
-
+        [DisplayName("事項編號")]
+        public int Id { get; set; }
         [DisplayName("待做事項")]
         public string Name { get; set; }
         [DisplayName("事項狀態")]

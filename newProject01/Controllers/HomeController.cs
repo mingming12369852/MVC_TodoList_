@@ -26,6 +26,7 @@ namespace newProject01.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult CreateCard(Card card)
         {
@@ -40,8 +41,49 @@ namespace newProject01.Controllers
             return RedirectToAction("Index");
         }
 
+        //刪除
+
+        public ActionResult DeleteCard(string Name) {
+            DBmessage dBmessage = new DBmessage();
+            dBmessage.DeletrCardByName(Name);
+            return RedirectToAction("Index");
+        }
 
 
+
+        //更新
+
+
+        public ActionResult EdidCard(int id)
+        {
+            DBmessage dBmessage = new DBmessage();
+            Card card = dBmessage.GetCardsById(id);
+
+            return View(card);
+        }
+        [HttpPost]
+        public ActionResult EdidCard(Card card)
+        {
+            DBmessage dBmessage = new DBmessage();
+            dBmessage.UpDataCard(card);
+
+            return RedirectToAction("Index");
+        }
+
+        //勾選狀態
+        public ActionResult CheckboxGet(int id)
+        {
+            return RedirectToAction("Index");
+
+        }
+        [HttpGet]
+        public ActionResult CheckboxGet(Card card) {
+            DBmessage dBmessage = new DBmessage();
+            dBmessage.UpDataSchedule(card);
+            return RedirectToAction("Index");
+        }
+
+        //其他
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
