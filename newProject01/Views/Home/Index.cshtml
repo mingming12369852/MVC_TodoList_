@@ -4,15 +4,16 @@
     //ViewBag.Title = "Home Page";
 }
 
-
-
-
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 
-
     <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
 </head>
 
 <div class="Top-Bar">
@@ -28,8 +29,19 @@
         <form class="form-group" role="form" method="post" action="/Home/CreateCard">
             <div class="form-group">
                 <label for="inputCharName" class="">工作事項</label>
-                <input type="text" id="inputCharName" name="Name" class="form-control" />
+                <input type="text" id="inputCharName" name="Name" />
+
+                <label for="inputCharNarrate" class="">工作敘述</label>
+                <input type="text" id="inputCharNarreta" name="Narrate" />
+
+                <label for="inputCharDate" class="" >截止日期</label>
+                <input type="date"id="inputCharDate" name="date" value="1980-08-26" />
+
                 <input class="btn btn-default" type="submit" value="新增" />
+
+
+
+
             </div>
 
 
@@ -45,9 +57,12 @@
         {
             <div>
                 <li class="list-group-item">
-                    <a href="@Url.Action("CheckboxGet",new { @id = @card.Id ,@schedule=true})">完成</a>
+                    <a href="@Url.Action("CheckboxGet",new { @id = @card.Id ,@schedule=true})">完成</a>|
 
-                    <input type="checkbox" name="shedule" value="true">|@card.Name
+                    @*<a href="@Uri.Action() ">@card.Name</a>*@
+                    @card.Name |
+                    @card.Narrate |
+                    @card.Date | 
 
                     @Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })|
                     @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
@@ -70,8 +85,8 @@
         {
             <div>
                 <li class="list-group-item">
-
-                    <s><input type="checkbox" checked>@card.Name</s>
+                    <a href="@Url.Action("recoveryCard",new { @id = @card.Id ,@schedule="false"})">復原</a>|
+                    |<s><input type="checkbox" checked>@card.Name</s>|
                     @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
 
                 </li>

@@ -80,7 +80,17 @@ namespace newProject01.Controllers
         public ActionResult CheckboxGet(Card card) {
             DBmessage dBmessage = new DBmessage();
             dBmessage.UpDataSchedule(card);
+
             return RedirectToAction("Index");
+
+        }
+        //復原
+        public ActionResult recoveryCard(Card card) {
+            DBmessage dBmessage = new DBmessage();
+            dBmessage.UpDataSchedule(card);
+
+            return RedirectToAction("Index");
+
         }
 
         //其他

@@ -5,6 +5,7 @@ using System.Web;
 
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Runtime.InteropServices;
 
 namespace newProject01.Models
 {
@@ -13,8 +14,8 @@ namespace newProject01.Models
     public class DBmessage
     {
         private readonly string ConnStr = "Data Source=DESKTOP-6Q13NT2;Initial Catalog=test;Integrated Security=True";
-        
-        //查詢
+
+        //=======查詢==========
         public List<Card> GetCards()
         {
             List<Card> cards = new List<Card>();
@@ -32,6 +33,7 @@ namespace newProject01.Models
                     {
                         Id = reader.GetInt32(reader.GetOrdinal("id")),
                         Name = reader.GetString(reader.GetOrdinal("name")),
+                        Narrate = reader.GetString(reader.GetOrdinal("narrate")),
                         Schedule = reader.GetString(reader.GetOrdinal("schedule")),
                         Date = reader.GetString(reader.GetOrdinal("date"))
 
@@ -48,23 +50,29 @@ namespace newProject01.Models
 
         }
 
+
+        //=====================
+
         //新增
         public void NewCard(Card card)
         {
             SqlConnection sqlConnection = new SqlConnection(ConnStr);
             SqlCommand sqlCommand = new SqlCommand(
-                @"INSERT INTO TodoList01 (name, date)
-                  VALUES (@name, @date)"
+                @"INSERT INTO TodoList01 (name, narrate, date)
+                  VALUES (@name, @narrate, @date)"
                 );
             sqlCommand.Connection = sqlConnection;
             sqlCommand.Parameters.Add(new SqlParameter("@name", card.Name));
-            sqlCommand.Parameters.Add(new SqlParameter("@date", 'e'));
+            sqlCommand.Parameters.Add(new SqlParameter("@narrate", card.Narrate));  //工作事項敘述 <----新功能
+            sqlCommand.Parameters.Add(new SqlParameter("@date", card.Date));
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
 
 
         }
+        //=====================
+
         //刪除
         public void DeletrCardByName(string Name)
         {
@@ -79,7 +87,9 @@ namespace newProject01.Models
 
 
         }
-        //修改 --名稱
+        //=====================
+
+        //修改--檢查資料
         public Card GetCardsById(int id)
         {
             Card card = new Card();
@@ -99,6 +109,7 @@ namespace newProject01.Models
 
                         Id = reader.GetInt32(reader.GetOrdinal("id")),
                         Name = reader.GetString(reader.GetOrdinal("name")),
+                        Narrate = reader.GetString(reader.GetOrdinal("narrate")),
                         Schedule = reader.GetString(reader.GetOrdinal("schedule")),
                         Date = reader.GetString(reader.GetOrdinal("date")),
 
@@ -113,36 +124,56 @@ namespace newProject01.Models
             return card;
 
         }
+        //修改--Updata資料
         public void UpDataCard(Card card)
         {
             SqlConnection sqlConnection = new SqlConnection(ConnStr);
-            SqlCommand sqlCommand = new SqlCommand(@"UPDATE TodoList01 SET name = @Name WHERE id = @Id");
+            SqlCommand sqlCommand = new SqlCommand(@"UPDATE TodoList01 SET name = @name, narrate = @narrate, date = @date WHERE id = @Id");
 
             sqlCommand.Connection = sqlConnection;
             sqlCommand.Parameters.Add(new SqlParameter("@Id", card.Id));
             sqlCommand.Parameters.Add(new SqlParameter("@Name", card.Name));
+            sqlCommand.Parameters.Add(new SqlParameter("@Narrate", card.Narrate));
+            sqlCommand.Parameters.Add(new SqlParameter("@Date", card.Date));
+
 
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
         }
+        //修改--Updata資料
+        public void recoveryCard(Card card) {
+            SqlConnection sqlConnection = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand(@"UPDATE TodoList01 SET schedule");
 
-        //修改 --g
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.Parameters.Add(new SqlParameter("@schedule", card.Schedule));
 
-        public void UpDataSchedule(Card card) {
+            sqlConnection.Open();
+            sqlCommand.ExecuteNonQuery();
+            sqlCommand.Clone();
+            
+
+        }
+        //=====================
+
+        //========修改完成狀態=
+        public void UpDataSchedule(Card card)
+        {
 
             SqlConnection sqlConnection = new SqlConnection(ConnStr);
             SqlCommand sqlCommand = new SqlCommand(@"UPDATE TodoList01 SET schedule = @Schedule WHERE id = @Id");
-           
+
             sqlCommand.Connection = sqlConnection;
             sqlCommand.Parameters.Add(new SqlParameter("@Id", card.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@Schedule",card.Schedule));
+            sqlCommand.Parameters.Add(new SqlParameter("@Schedule", card.Schedule));
 
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
 
         }
+        //=====================
     }
 
 
