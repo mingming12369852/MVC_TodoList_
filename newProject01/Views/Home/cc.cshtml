@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "cc";
+}
+
+<h2>cc</h2>
+
+<!--TodoList區塊-->
+<div class="container-fluid container-fluid " id="midBox" align="center">
+
+    <div class="row"> </div>
+
+    <ul class="list-group">
+
+
+        <form class="form-group" role="form" method="post" action="/Home/CreateCard">
+
+            <div class="form-group">
+                <label for="inputCharName" class="">工作事項</label>
+                <input type="text" id="inputCharName" name="Name" />
+
+                <label for="inputCharNarrate" class="">工作敘述</label>
+                <input type="text" class="form-control" id="inputCharNarreta" rows="3" name="Narrate" />
+
+                <label for="inputCharDate" class="">截止日期</label>
+                <input type="date" id="inputCharDate" name="date" value="1980-08-26" />
+
+                <input class="btn btn-default" type="submit" value="新增" />
+            </div>
+
+
+    </ul>
+
+    <!--待做清單-->
+    <h1>====待做清單====</h1>
+    @foreach (Card card in cards)
+    {
+
+        if (@card.Schedule == "false")
+        {
+            <div>
+                <li class="list-group-item">
+                    <a href="@Url.Action("CheckboxGet",new { @id = @card.Id ,@schedule=true})">完成</a>|
+
+                    @*<a href="@Uri.Action() ">@card.Name</a>*@
+                    @card.Name |
+                    @card.Narrate |
+                    @card.Date |
+
+                    @Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })|
+                    @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
+
+                </li>
+            </div>
+        }
+
+    }
+
+    <!--完成清單-->
+    <h1>====完成清單====</h1>
+    @foreach (Card card in cards)
+    {
+
+        if (@card.Schedule == "True")
+        {
+            <div>
+                <li class="list-group-item">
+                    <a href="@Url.Action("recoveryCard",new { @id = @card.Id ,@schedule="false"})">復原</a>|
+                    |<s><input type="checkbox" checked>@card.Name</s>|
+                    @Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })
+
+                </li>
+            </div>
+        }
+
+    }
+
+
+</div>

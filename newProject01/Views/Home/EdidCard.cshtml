@@ -3,6 +3,7 @@
     ViewBag.Title = "修改介面";
 }
 
+<link href="~/Content/HomeCss01.css" rel="stylesheet" type="text/css" />
 <h2>EdidCard</h2>
 
 <form method="post" action="/Home/EdidCard">
@@ -10,8 +11,8 @@
     <input type="hidden" name="id" value="@Model.Id" />
     工作事項<input name="name" value="@Model.Name" />
     工作敘述<input name="narrate" value="@Model.Narrate" />
-    截止日期<input type="date" name="date" value="@Model.Date"/>
+    截止日期<input type="date" name="date" value="@Model.Date" />
     <input class="btn btn-default" type="submit" value="修改" />
 
 </form>
-<a @Html.ActionLink("取消","index")> </a>
+<a @Html.ActionLink("取消", "index")> </a>

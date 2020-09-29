@@ -100,12 +100,19 @@ namespace newProject01.Controllers
 
             return View();
         }
-
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        //return content 
+        public ActionResult HelloContent(string hi) {
+            ViewData["data"] = "Hello world";
+            DBmessage dBmessage = new DBmessage();
+
+            return Content("eqwiofhuiwenj");
         }
 
     }
