@@ -5,15 +5,18 @@
 }
 
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/HomeCss01.css" rel="stylesheet" type="text/css" />
+
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 
     <link href="/Content/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <link href="~/Content/HomeCss01.css" rel="stylesheet" type="text/css" />
+
     </style>
 </head>
 
@@ -75,7 +78,7 @@
 
     <!--完成清單-->
     <h1>====完成清單====</h1>
-    <table class="table">
+    <table class="table table_ok">
         <thead></thead>
         <tr>
             <th>#</th>
@@ -96,7 +99,6 @@
                         <th>@card.Name</th>
                         <th>@card.Narrate</th>
                         <th>@card.Date</th>
-                        @*<th><button @Html.Action("修改",);  type="button" class="btn btn-primary" data-toggle="modal" data-target="#EdidCard">修改</button></th>*@
                         <th> @Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })</th>
                         <th>@Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })</th>
                     </tr>
@@ -104,16 +106,31 @@
             }
 
 
-            
+
         </tbody>
     </table>
 
-    <a @Html.ActionLink("測試","HelloContent",new {@XDD = "ewqruiwqn"})></a>
+    @section newBar{
 
+        <script>
+            //$('.table_ok'). ("<h1>Hello :DDD</h1>");
+            function he() {
+                var pdiv = $(".table_ok");
+                pdiv.add("div");
+                console.log("HE");
+                
+            }
+
+
+        </script>
+
+    }
+    <h1 id="123"></h1>
 </div>
 
+
 <!-- 新增 Modal  -->
-<div class="modal fade" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fa    de" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

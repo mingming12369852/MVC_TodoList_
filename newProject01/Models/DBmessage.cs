@@ -15,7 +15,7 @@ namespace newProject01.Models
     {
         private readonly string ConnStr = "Data Source=DESKTOP-6Q13NT2;Initial Catalog=test;Integrated Security=True";
 
-        //=======查詢==========
+        //查詢
         public List<Card> GetCards()
         {
             List<Card> cards = new List<Card>();
