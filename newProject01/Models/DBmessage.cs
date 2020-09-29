@@ -124,7 +124,7 @@ namespace newProject01.Models
             return card;
 
         }
-        //修改--Updata資料
+        //修改--Updata全部資料
         public void UpDataCard(Card card)
         {
             SqlConnection sqlConnection = new SqlConnection(ConnStr);
@@ -154,6 +154,11 @@ namespace newProject01.Models
             sqlCommand.Clone();
             
 
+        }
+        //修改--Updata 針對名稱修改資料
+        public void EditCardFunction(string id ,string name) {
+            SqlConnection sqlConnection = new SqlConnection(ConnStr);
+            SqlCommand sqlCommand = new SqlCommand(@"UPDATA TodoList01 SET name = @name WHERE id = @id");
         }
         //=====================
 

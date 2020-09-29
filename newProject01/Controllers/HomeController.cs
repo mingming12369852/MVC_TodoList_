@@ -70,9 +70,17 @@ namespace newProject01.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult EdidCard(string id, string name) {
+
+            DBmessage dBmessage = new DBmessage();
+            dBmessage.EditCardFunction(id,name);
+
+            return RedirectToAction("Index");
+        }
+
         //勾選狀態
-        public ActionResult CheckboxGet(int id)
-        {
+        public ActionResult CheckboxGet(int id) {
             return RedirectToAction("Index");
 
         }

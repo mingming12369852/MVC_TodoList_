@@ -16,8 +16,6 @@
     <link href="/Content/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
-    </style>
 </head>
 
 
@@ -30,14 +28,11 @@
 <div class="container-fluid container-fluid  " id="midBox" align="center">
 
     <br>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCard">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCard">今日的工作事項 +</button>
+    <div class="row"> 
 
-        今日的工作事項 +
-    </button>
-
-    <div class="row"> </div>
+    </div>
     <!--新增事項-->
-    <!--待做清單-->
     <h1>====待做清單====</h1>
     <table class="table">
         <thead></thead>
@@ -94,12 +89,13 @@
             {
                 if (@card.Schedule == "True")
                 {
-                    <tr>
+                    <tr >
                         <th><a href="@Url.Action("CheckboxGet", new { @id = @card.Id, @schedule = "false" })">復原</a></th>
-                        <th>@card.Name</th>
+                        <th onclick="SetData(@card.Id,'@card.Name')">@card.Name</th>
                         <th>@card.Narrate</th>
                         <th>@card.Date</th>
-                        <th> @Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })</th>
+                        <th></th>
+                        <th>@Html.ActionLink("修改", "EdidCard", new { @id = @card.Id })</th>
                         <th>@Html.ActionLink("刪除", "DeleteCard", new { @name = @card.Name })</th>
                     </tr>
                 }
@@ -110,24 +106,48 @@
         </tbody>
     </table>
 
-    @section newBar{
-
-        <script>
-            //$('.table_ok'). ("<h1>Hello :DDD</h1>");
-            function he() {
-                var pdiv = $(".table_ok");
-                pdiv.add("div");
-                console.log("HE");
-                
-            }
-
-
-        </script>
-
-    }
-    <h1 id="123"></h1>
 </div>
 
+<script>
+
+function SetData(id,name){
+
+    var pogg = prompt(name,name);
+
+    $('.modal-body_').add("<div>");
+
+    console.log('hello :((', id, name);
+
+    updata(id,name);
+}
+    function updata(id, name) {
+        $.ajax({
+        url:'~/Home/EdidCard/'+'?id='+id+'?name'+name ,
+        dataType:"json",
+        error:function (e){
+
+        },
+        success:function (r){
+        console.log(r);
+        }
+});
+}
+ @*$('EdidCard').click(function () {
+
+     $.ajax({
+        url:'~/Home/EdidCard?id='+@id,
+        dataType:"json",
+        error:function (e){
+
+        },
+        success:function (r){
+        console.log(r);
+        }
+
+    });
+
+});*@
+</script>
 
 <!-- 新增 Modal  -->
 <div class="modal fa    de" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -167,6 +187,7 @@
         </div>
     </div>
 </div>
+    
 <!-- 修改 Modal  -->
 <div class="modal fade" id="EdidCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -177,8 +198,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body_">
                 <!-- CODE 放這-->
+                           <label for="inputCharName" class="">工作事項</label>
+                            <input type="text" id="inputCharName" name="Name" />
+
+                            <label for="inputCharNarrate" class="">工作敘述</label>
+                            <input type="text" id="inputCharNarreta" name="Narrate" />
+
+                            <label for="inputCharDate" class="">截止日期</label>
+                            <input type="date" id="inputCharDate" name="date" value="1980-08-26" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
